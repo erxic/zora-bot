@@ -1,0 +1,2 @@
+# bot-zora
+trading bot 
