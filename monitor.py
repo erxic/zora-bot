@@ -3,7 +3,7 @@ import requests
 from uniswap_router import swap_token
 from config import CREATOR_ADDRESS, MIN_ETH_TO_SPEND
 
-ZORA_API_URL = "https://api.zora.co/graphql"
+ZORA_API_URL = ""  # WHERE IS THE ZORA API LINK?
 
 HEADERS = {
     "Content-Type": "application/json",
@@ -64,16 +64,13 @@ def monitor_loop():
                 print(
                     f"[+] New token detected: {token_address}, Token ID: {token_id}, Mint price: {mint_price} ETH")
 
-                # Optional: Pastikan harga mint < batas aman
-                if mint_price <= MIN_ETH_TO_SPEND:
-                    print("[*] Mint price is acceptable, initiating swap...")
-                    swap_token(token_address, MIN_ETH_TO_SPEND)
-                else:
-                    print("[!] Mint price too high, skipping swap.")
+                # Langsung beli tanpa pengecekan harga
+                print("[*] Initiating token swap as early buyer...")
+                swap_token(token_address, MIN_ETH_TO_SPEND)
 
                 seen_posts.add(unique_key)
 
-        time.sleep(8)  # Cek setiap 8 detik
+        time.sleep(8)  # cek tiap 8 detik
 
 
 if __name__ == "__main__":
